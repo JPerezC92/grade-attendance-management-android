@@ -1,22 +1,44 @@
 package com.example.gradeattendancemanagement
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
-import com.example.gradeattendancemanagement.Route.*
+import com.example.gradeattendancemanagement.miscellaneous.utils.Route.*
+import com.example.gradeattendancemanagement.auth.components.LoginScreen
+import com.example.gradeattendancemanagement.auth.components.RegisterScreen
+import com.example.gradeattendancemanagement.auth.components.SendGetUserRequest
+import com.example.gradeattendancemanagement.auth.local.LocalAuth
+import com.example.gradeattendancemanagement.course.components.CoursesScreen
+import com.example.gradeattendancemanagement.miscellaneous.hooks.useLoading
+import com.example.gradeattendancemanagement.miscellaneous.local.LocalRouter
 
 @Composable
 fun RouterApp() {
-    val routerAppController = rememberNavController()
 
-    NavHost(navController = routerAppController, startDestination = LoginScreen.route) {
+    val router = LocalRouter.current
+    val authContext = LocalAuth.current
+    val getUserRequestLoading = useLoading()
+
+    LaunchedEffect(authContext.token) {
+        authContext.token?.let { getUserRequestLoading.startLoading() }
+    }
+
+    if (getUserRequestLoading.isLoading) {
+        authContext.token?.let { SendGetUserRequest(token = it, setUser = authContext.setUser) }
+    }
+
+
+    NavHost(navController = router.routerAppController, startDestination = LoginScreen.route) {
         composable(LoginScreen.route) {
-            LoginScreen(navToRegister = { routerAppController.navigate(RegisterScreen.route) })
+            LoginScreen()
         }
 
         composable(RegisterScreen.route) {
             RegisterScreen()
+        }
+        composable(CoursesScreen.route) {
+            CoursesScreen()
         }
     }
 }
