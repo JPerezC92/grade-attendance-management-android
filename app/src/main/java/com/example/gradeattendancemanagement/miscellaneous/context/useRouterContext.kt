@@ -13,11 +13,24 @@ fun useRouterContext(): UseRouterContextResult {
     val navToRegister = { routerAppController.navigate(RegisterScreen.route) }
     val navToLogin = { routerAppController.navigate(LoginScreen.route) }
     val navToCourses = { routerAppController.navigate(CoursesScreen.route) }
+    val navToCourseContent =
+        fun(courseId: String) { routerAppController.navigate(CourseContentScreen.create(courseId)) }
+
+    val navToCourseRecord =
+        fun(courseRecordId: String) {
+            routerAppController.navigate(
+                CourseRecordScreen.create(
+                    courseRecordId
+                )
+            )
+        }
 
     return UseRouterContextResult(
         routerAppController = routerAppController,
         navToRegister = navToRegister,
         navToLogin = navToLogin,
-        navToCourses = navToCourses
+        navToCourses = navToCourses,
+        navToCourseContent = navToCourseContent,
+        navToCourseRecord = navToCourseRecord
     )
 }

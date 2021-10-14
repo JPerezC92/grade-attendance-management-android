@@ -15,14 +15,18 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import com.example.gradeattendancemanagement.course.types.Course
+import com.example.gradeattendancemanagement.miscellaneous.local.LocalRouter
 
 @Composable
 fun CourseCard(course: Course) {
+
+    val router = LocalRouter.current
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(15.dp)
-            .clickable { },
+            .clickable { router.navToCourseContent(course.id.toString()) },
         elevation = 10.dp
     ) {
         Column(
@@ -50,7 +54,6 @@ fun CourseCard(course: Course) {
 
             Text(
                 buildAnnotatedString {
-
                     withStyle(
                         style = SpanStyle(fontWeight = FontWeight.W900, color = Color(0xFF4552B8))
                     ) {
@@ -58,6 +61,8 @@ fun CourseCard(course: Course) {
                     }
                 }
             )
+
+            Text(text = course.id.toString())
         }
     }
 }

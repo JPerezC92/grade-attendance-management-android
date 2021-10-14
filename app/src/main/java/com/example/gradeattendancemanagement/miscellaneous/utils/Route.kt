@@ -4,4 +4,11 @@ sealed class Route(val route: String) {
     object LoginScreen : Route("loginScreen")
     object RegisterScreen : Route("registerScreen")
     object CoursesScreen : Route("coursesScreen")
+    object CourseContentScreen : Route("coursesScreen/{courseId}") {
+        fun create(courseId: String) = "coursesScreen/$courseId"
+    }
+
+    object CourseRecordScreen : Route("courseRecordScreen/{courseRecordId}") {
+        fun create(courseRecordId: String) = "courseRecordScreen/$courseRecordId"
+    }
 }

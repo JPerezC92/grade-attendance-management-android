@@ -6,5 +6,7 @@ data class UseRouterContextResult(
     val routerAppController: NavHostController,
     val navToRegister: () -> Unit,
     val navToLogin: () -> Unit,
-    val navToCourses: () -> Unit
+    val navToCourses: () -> Unit,
+    val navToCourseContent: (courseId: String) -> Unit,
+    val navToCourseRecord: (courseRecordId: String) -> Unit
 )

@@ -15,18 +15,8 @@ import com.example.gradeattendancemanagement.miscellaneous.hooks.useLoading
 fun CoursesScreen() {
     val authContext = LocalAuth.current
 
-//    val fetch = useFetch(
-//        repository = LaravelGetUserRepository(
-//            endpoint = getRetrofit2().create(AuthEndpoint::class.java),
-//            token = authContext.token.value!!
-//        )
-//    )
-    val loading = useLoading()
     val fetchCourses =
         useFetch(repository = LaravelGetCoursesRepository(token = authContext.token!!))
-
-
-
 
     Column {
 
@@ -37,20 +27,7 @@ fun CoursesScreen() {
             fetchCourses.data?.payload?.map { course: Course -> CourseCard(course = course) }
         }
 
-//
-//        if (fetch.data.value is User) {
-//            Text(text = fetch.data.value!!.firstname)
-//        }
-//
-//        if (fetch.isLoading.value) {
-//            CircularProgressIndicator()
-//        } else {
-//
-//
-//            Text(text = "CoursesScreen")
-//            Text(text = authContext.token.value!!)
-//
-//        }
+
     }
 }
 
