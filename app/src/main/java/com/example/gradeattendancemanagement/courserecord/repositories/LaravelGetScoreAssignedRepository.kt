@@ -7,7 +7,7 @@ import com.example.gradeattendancemanagement.miscellaneous.types.Resource
 import com.example.gradeattendancemanagement.miscellaneous.types.SuccessfulResponse
 import com.example.gradeattendancemanagement.miscellaneous.utils.getRetrofit
 
-class LaravelGetScoreAssignedContentRepository constructor(val token: String, val scoreId: String) :
+class LaravelGetScoreAssignedRepository constructor(val token: String, val scoreId: String) :
     Repository<Resource<SuccessfulResponse<List<ScoreAssignedContent>>>> {
     override suspend fun execute(): Resource<SuccessfulResponse<List<ScoreAssignedContent>>> {
         val response = try {
