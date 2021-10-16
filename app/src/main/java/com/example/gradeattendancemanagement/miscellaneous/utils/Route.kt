@@ -11,4 +11,5 @@ sealed class Route(val route: String) {
     object CourseRecordScreen : Route("courseRecordScreen/{courseRecordId}") {
         fun create(courseRecordId: String) = "courseRecordScreen/$courseRecordId"
     }
+
 }

@@ -22,8 +22,6 @@ fun GradingScore(scoreId: MutableState<Int?>, loading: UseLoadingResult) {
         scoreAssignedContent.value = newScoreAssignedContent
     }
 
-
-
     if (loading.isLoading === true) {
         SendGetScoreAssignedContentRequest(
             scoreId = scoreId.value.toString(),
@@ -55,7 +53,6 @@ fun GradingScore(scoreId: MutableState<Int?>, loading: UseLoadingResult) {
             Button(onClick = { putScoreAssignedLoading.startLoading() }) {
                 Text(text = "Guardar")
             }
-
 
             if (putScoreAssignedLoading.isLoading) {
                 CircularProgressIndicator()

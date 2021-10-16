@@ -1,5 +1,7 @@
 package com.example.gradeattendancemanagement.courserecord.components
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -15,6 +17,8 @@ import com.example.gradeattendancemanagement.miscellaneous.hooks.useLoading
 fun CourseRecordScreen(
     courseRecordId: String
 ) {
+
+    val active = remember { mutableStateOf("GRADE") }
 
     val authContext = LocalAuth.current
 
@@ -47,31 +51,36 @@ fun CourseRecordScreen(
             scoreId.value?.let { setScoreId(scores.value[0].id) }
         }
     }
+    Column {
 
-    if (courseRecordContent is CourseRecordContent) {
+        Row {
 
+            Button(onClick = { active.value = "GRADE" }) {
+                Text(text = "Calificaciones")
+            }
+            Button(onClick = { active.value = "ATTENDANCE" }) {
+                Text(text = "Asistencias")
+            }
+        }
 
-        LazyColumn {
-            this.items(count = 1, itemContent = {
+        if (courseRecordContent is CourseRecordContent) {
 
-                Text(text = courseRecordContent.courseRecord.career)
-                Text(text = courseRecordContent.courseRecord.group)
-
-                SelectActivity(courseRecordContent.activities, setActivity)
-
-                SelectScore(
-                    scores = scores.value,
-                    setScoreId = setScoreId
+            if (active.value === "GRADE") {
+                CourseRecordGrade(
+                    courseRecordContent = courseRecordContent,
+                    setActivity = setActivity,
+                    scores = scores,
+                    scoreId = scoreId,
+                    setScoreId = setScoreId,
+                    getScoreAssignedLoading = getScoreAssignedLoading
                 )
+            }
 
-                if (scoreId?.value is Int) {
-                    GradingScore(scoreId = scoreId, loading = getScoreAssignedLoading)
-                }
-
-            })
+            if (active.value === "ATTENDANCE") {
+                CourseRecordAttendance(courseRecordContent = courseRecordContent)
+            }
         }
     }
-
 }
 
 
