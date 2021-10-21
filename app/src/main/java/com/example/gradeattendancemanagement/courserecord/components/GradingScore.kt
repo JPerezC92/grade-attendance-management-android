@@ -12,7 +12,7 @@ import com.example.gradeattendancemanagement.miscellaneous.hooks.useLoading
 import com.example.gradeattendancemanagement.miscellaneous.types.UseLoadingResult
 
 @Composable
-fun GradingScore(scoreId: MutableState<Int?>, loading: UseLoadingResult) {
+fun GradingScore(scoreId: MutableState<Int?>, loading: UseLoadingResult, courseRecordId: String) {
 
     val scoreAssignedContent = remember { mutableStateOf<List<ScoreAssignedContent>?>(null) }
 
@@ -25,6 +25,7 @@ fun GradingScore(scoreId: MutableState<Int?>, loading: UseLoadingResult) {
     if (loading.isLoading === true) {
         SendGetScoreAssignedContentRequest(
             scoreId = scoreId.value.toString(),
+            courseRecordId = courseRecordId,
             setScoreAssignedContent = setScoreAssignedContent,
             loading = loading
         )

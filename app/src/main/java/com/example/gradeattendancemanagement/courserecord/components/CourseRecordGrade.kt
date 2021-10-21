@@ -32,7 +32,11 @@ fun CourseRecordGrade(
             )
 
             if (scoreId?.value is Int) {
-                GradingScore(scoreId = scoreId, loading = getScoreAssignedLoading)
+                GradingScore(
+                    scoreId = scoreId,
+                    loading = getScoreAssignedLoading,
+                    courseRecordId = courseRecordContent.courseRecord.id.toString()
+                )
             }
 
         })

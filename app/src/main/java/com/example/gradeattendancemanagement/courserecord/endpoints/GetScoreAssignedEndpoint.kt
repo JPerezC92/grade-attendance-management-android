@@ -9,9 +9,10 @@ import retrofit2.http.Path
 
 interface GetScoreAssignedEndpoint {
     @Headers("Accept: application/json")
-    @GET("scores/{scoreId}")
+    @GET("scores/{scoreId}/{courseRecordId}")
     suspend fun call(
         @Header("Authorization") token: String,
         @Path("scoreId") scoreId: String,
+        @Path("courseRecordId") courseRecordId: String,
     ): SuccessfulResponse<List<ScoreAssignedContent>>
 }

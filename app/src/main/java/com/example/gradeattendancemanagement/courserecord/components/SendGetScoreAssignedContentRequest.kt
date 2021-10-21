@@ -12,6 +12,7 @@ import com.example.gradeattendancemanagement.miscellaneous.types.UseLoadingResul
 @Composable
 fun SendGetScoreAssignedContentRequest(
     scoreId: String,
+    courseRecordId: String,
     setScoreAssignedContent: (List<ScoreAssignedContent>) -> Unit,
     loading: UseLoadingResult
 ) {
@@ -19,7 +20,7 @@ fun SendGetScoreAssignedContentRequest(
 
     val fetchScoreAssignedContent = useFetch(
         repository = LaravelGetScoreAssignedRepository(
-            scoreId = scoreId, token = authContext.token!!
+            scoreId = scoreId, token = authContext.token!!, courseRecordId = courseRecordId
         )
     )
 
