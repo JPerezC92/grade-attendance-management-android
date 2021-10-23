@@ -8,7 +8,9 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.gradeattendancemanagement.auth.components.nuevo.login.components.Login2
 import com.example.gradeattendancemanagement.ui.theme.GradeAttendanceManagementTheme
+import dev.leonardom.loginjetpackcompose.presentation.login.registration.RegistrationScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,7 +19,8 @@ class MainActivity : ComponentActivity() {
             GradeAttendanceManagementTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
-                    Store(context = this, content = { RouterApp() })
+                    //Store(context = this, content = { RouterApp() })
+                    RegistrationScreen()
                 }
             }
         }
