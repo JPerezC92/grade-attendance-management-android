@@ -1,4 +1,4 @@
-package dev.leonardom.loginjetpackcompose.presentation.login.components
+package com.example.gradeattendancemanagement.miscellaneous.components
 
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size

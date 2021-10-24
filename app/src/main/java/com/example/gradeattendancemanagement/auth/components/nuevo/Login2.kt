@@ -1,4 +1,4 @@
-package com.example.gradeattendancemanagement.auth.components.nuevo.login.components
+package com.example.gradeattendancemanagement.auth.components.nuevo
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -44,8 +44,8 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.gradeattendancemanagement.R
 
-import dev.leonardom.loginjetpackcompose.presentation.login.components.RoundedButton
-import dev.leonardom.loginjetpackcompose.presentation.login.components.TransparentTextField
+import com.example.gradeattendancemanagement.miscellaneous.components.RoundedButton
+import com.example.gradeattendancemanagement.miscellaneous.components.TransparentTextField
 
 
 @Preview(showBackground = true)

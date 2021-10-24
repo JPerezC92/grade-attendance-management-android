@@ -1,4 +1,4 @@
-package dev.leonardom.loginjetpackcompose.presentation.login.registration
+package com.example.gradeattendancemanagement.auth.components.nuevo
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -14,7 +14,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -25,8 +24,8 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
-import dev.leonardom.loginjetpackcompose.presentation.login.components.RoundedButton
-import dev.leonardom.loginjetpackcompose.presentation.login.components.TransparentTextField
+import com.example.gradeattendancemanagement.miscellaneous.components.RoundedButton
+import com.example.gradeattendancemanagement.miscellaneous.components.TransparentTextField
 
 @Composable
 fun RegistrationScreen(){
