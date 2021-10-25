@@ -21,9 +21,6 @@ fun CourseRecordGrade(
     LazyColumn {
         this.items(count = 1, itemContent = {
 
-            Text(text = courseRecordContent.courseRecord.career)
-            Text(text = courseRecordContent.courseRecord.group)
-
             SelectActivity(courseRecordContent.activities, setActivity)
 
             SelectScore(

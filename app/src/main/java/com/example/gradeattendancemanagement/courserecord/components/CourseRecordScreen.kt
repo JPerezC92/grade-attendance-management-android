@@ -2,9 +2,14 @@ package com.example.gradeattendancemanagement.courserecord.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.focusModifier
+import androidx.compose.ui.unit.dp
 import com.example.gradeattendancemanagement.auth.local.LocalAuth
 import com.example.gradeattendancemanagement.courserecord.repositories.LaravelGetCourseRecordRepository
 import com.example.gradeattendancemanagement.courserecord.types.Activity
@@ -51,7 +56,11 @@ fun CourseRecordScreen(
             scoreId.value?.let { setScoreId(scores.value[0].id) }
         }
     }
-    Column {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
+    ) {
 
         Row {
 
@@ -61,6 +70,14 @@ fun CourseRecordScreen(
             Button(onClick = { active.value = "ATTENDANCE" }) {
                 Text(text = "Asistencias")
             }
+        }
+
+        if (courseRecordContent !== null) {
+
+            Text(text = "Carrera: ${courseRecordContent.courseRecord.career}")
+            Text(text = "Semestre: ${courseRecordContent.courseRecord.semester}")
+            Text(text = "Grupo: ${courseRecordContent.courseRecord.group}")
+            Text(text = "Turno: ${courseRecordContent.courseRecord.turn}")
         }
 
         if (courseRecordContent is CourseRecordContent) {

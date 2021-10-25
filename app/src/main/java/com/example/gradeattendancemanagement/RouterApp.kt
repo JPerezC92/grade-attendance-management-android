@@ -1,9 +1,11 @@
 package com.example.gradeattendancemanagement
 
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.gradeattendancemanagement.auth.components.IfUserAuthenticatedGotoApp
 import com.example.gradeattendancemanagement.miscellaneous.utils.Route.*
 import com.example.gradeattendancemanagement.auth.components.LoginScreen
 import com.example.gradeattendancemanagement.auth.components.RegisterScreen
@@ -31,13 +33,19 @@ fun RouterApp() {
     }
 
 
+
     NavHost(navController = router.routerAppController, startDestination = LoginScreen.route) {
         composable(LoginScreen.route) {
-            LoginScreen()
+            IfUserAuthenticatedGotoApp {
+                LoginScreen()
+
+            }
         }
 
         composable(RegisterScreen.route) {
-            RegisterScreen()
+            IfUserAuthenticatedGotoApp {
+                RegisterScreen()
+            }
         }
 
         composable(CoursesScreen.route) {

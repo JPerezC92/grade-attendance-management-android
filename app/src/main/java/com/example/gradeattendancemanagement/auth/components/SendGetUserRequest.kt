@@ -15,8 +15,7 @@ fun SendGetUserRequest(token: String, setUser: SetUser) {
     LaunchedEffect(fetchGetUser.data) {
         if (fetchGetUser.data?.success === true) {
             setUser(fetchGetUser.data.payload)
-            router.navToCourses()
+//            router.navToCourses()
         }
     }
-
 }

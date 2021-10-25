@@ -1,5 +1,6 @@
 package com.example.gradeattendancemanagement.miscellaneous.components
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -20,9 +21,11 @@ fun RoundedButton(
     displayProgressBar: Boolean = false,
     onClick: () -> Unit
 ) {
-    if(!displayProgressBar) {
+    if (!displayProgressBar) {
         Button(
-            modifier = modifier.width(280.dp).height(50.dp),
+            modifier = modifier
+                .width(280.dp)
+                .height(50.dp),
             onClick = onClick,
             shape = RoundedCornerShape(50),
         ) {
