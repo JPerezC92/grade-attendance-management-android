@@ -1,5 +1,6 @@
 package com.example.gradeattendancemanagement.courserecord.components
 
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import com.example.gradeattendancemanagement.courserecord.types.Activity
@@ -15,7 +16,7 @@ fun SelectActivity(
 
 
     SelectMenu(
-        modifier = Modifier,
+        modifier = Modifier.fillMaxWidth(0.5f),
         menuItems = activities.map { activity -> activity.name },
         menuExpandedState = expandedActivity,
         placeholder = "Actividades",

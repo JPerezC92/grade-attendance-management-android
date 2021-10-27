@@ -1,5 +1,6 @@
 package com.example.gradeattendancemanagement.courserecord.components
 
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -21,12 +22,15 @@ fun CourseRecordGrade(
     LazyColumn {
         this.items(count = 1, itemContent = {
 
-            SelectActivity(courseRecordContent.activities, setActivity)
+            Row {
 
-            SelectScore(
-                scores = scores.value,
-                setScoreId = setScoreId
-            )
+                SelectActivity(courseRecordContent.activities, setActivity)
+
+                SelectScore(
+                    scores = scores.value,
+                    setScoreId = setScoreId
+                )
+            }
 
             if (scoreId?.value is Int) {
                 GradingScore(
