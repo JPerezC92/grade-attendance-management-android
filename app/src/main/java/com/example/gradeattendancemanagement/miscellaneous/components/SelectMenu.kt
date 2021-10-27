@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 fun SelectMenu(
     menuItems: List<String>,
     menuExpandedState: Boolean,
-//    seletedIndex: Int,
+    modifier: Modifier,
     placeholder: String,
     updateMenuExpandStatus: () -> Unit,
     onDismissMenuView: () -> Unit,
@@ -26,7 +26,7 @@ fun SelectMenu(
     val selectedIndex = remember { mutableStateOf<Int?>(null) }
 
     Box(
-        modifier = Modifier
+        modifier = modifier
             .padding(top = 10.dp)
             .border(0.5.dp, MaterialTheme.colors.onSurface.copy(alpha = 0.5f))
             .clickable(

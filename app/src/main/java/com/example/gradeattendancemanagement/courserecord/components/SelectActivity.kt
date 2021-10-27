@@ -1,6 +1,7 @@
 package com.example.gradeattendancemanagement.courserecord.components
 
 import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
 import com.example.gradeattendancemanagement.courserecord.types.Activity
 import com.example.gradeattendancemanagement.miscellaneous.components.SelectMenu
 
@@ -14,6 +15,7 @@ fun SelectActivity(
 
 
     SelectMenu(
+        modifier = Modifier,
         menuItems = activities.map { activity -> activity.name },
         menuExpandedState = expandedActivity,
         placeholder = "Actividades",

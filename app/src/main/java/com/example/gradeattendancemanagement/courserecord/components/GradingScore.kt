@@ -2,6 +2,7 @@ package com.example.gradeattendancemanagement.courserecord.components
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.Button
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
@@ -13,21 +14,26 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.textInputServiceFactory
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.gradeattendancemanagement.courserecord.types.ScoreAssignedContent
-import com.example.gradeattendancemanagement.miscellaneous.components.RoundedButton
+import com.example.gradeattendancemanagement.miscellaneous.components.Dialog
 import com.example.gradeattendancemanagement.miscellaneous.hooks.useLoading
 import com.example.gradeattendancemanagement.miscellaneous.types.UseLoadingResult
 
 @Composable
 fun GradingScore(scoreId: MutableState<Int?>, loading: UseLoadingResult, courseRecordId: String) {
 
+    val openDialog = remember { mutableStateOf(false) }
+    val currentScoreAssignedContent = remember { mutableStateOf<ScoreAssignedContent?>(null) }
+
     val scoreAssignedContent = remember { mutableStateOf<List<ScoreAssignedContent>?>(null) }
 
-    val putScoreAssignedLoading = useLoading()
+    val putScoreAssignedByIdLoading = useLoading()
 
     val setScoreAssignedContent = fun(newScoreAssignedContent: List<ScoreAssignedContent>) {
         scoreAssignedContent.value = newScoreAssignedContent
@@ -76,61 +82,90 @@ fun GradingScore(scoreId: MutableState<Int?>, loading: UseLoadingResult, courseR
                 modifier = Modifier.height(50.dp),
             ) {
 
-                Text(
-                    text = "${scoreAssigned.firstname}",
+
+                ClickableText(
                     modifier = Modifier
                         .fillMaxWidth(0.7F)
                         .border(1.dp, Color.Black)
                         .fillMaxHeight()
                         .padding(top = 15.dp)
                         .padding(horizontal = 10.dp),
+                    text = buildAnnotatedString {
+                        append("${scoreAssigned.firstname}")
+                    },
+                    onClick = {
+                        currentScoreAssignedContent.value = scoreAssigned
+                        openDialog.value = true
+                    }
 
-                    textAlign = TextAlign.Justify
+                )
+
+                Button(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 2.dp),
+                    onClick = {
+                        currentScoreAssignedContent.value = scoreAssigned
+                        openDialog.value = true
+                    }) {
+                    Text(text = if (scoreAssigned.value === 0) "Calificar" else scoreAssigned.value.toString())
+                }
+
+
+            }
+
+
+        }
+
+    }
+
+    if (putScoreAssignedByIdLoading.isLoading && currentScoreAssignedContent.value !== null) {
+        SendPutScoreAssignedByIdRequest(
+            scoreAssigned = currentScoreAssignedContent.value!!,
+            loading = putScoreAssignedByIdLoading
+        )
+    }
+
+    Dialog(
+        action = {
+            putScoreAssignedByIdLoading.startLoading()
+        },
+        showDialog = openDialog.value,
+        dismissDialog = { openDialog.value = false },
+        content = {
+
+            Column() {
+                Text(
+                    modifier = Modifier
+                        .padding(bottom = 10.dp)
+                        .fillMaxWidth(),
+                    text = "${currentScoreAssignedContent.value!!.firstname}",
+                    style = TextStyle(
+                        fontSize = 22.sp,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center
+                    )
                 )
 
                 TextField(
-                    value = if (scoreAssigned.value === 0) "" else scoreAssigned.value.toString(),
+                    textStyle = TextStyle(
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 20.sp,
+                        textAlign = TextAlign.Center
+                    ),
+
+                    value = if (currentScoreAssignedContent.value!!.value === 0) "" else currentScoreAssignedContent.value!!.value.toString(),
                     onValueChange = { newValue ->
                         if (newValue.length !== 0)
-                            scoreAssigned.value = Integer.parseInt(newValue.trim())
+                            currentScoreAssignedContent!!.value!!.value =
+                                Integer.parseInt(newValue.trim())
                         else
-                            scoreAssigned.value = 0
+                            currentScoreAssignedContent!!.value!!.value = 0
 
                     })
 
             }
-
-
         }
-
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-
-            RoundedButton(
-                text = "Guardar",
-                displayProgressBar = putScoreAssignedLoading.isLoading,
-                modifier = Modifier
-                    .fillMaxWidth()
-            ) {
-                putScoreAssignedLoading.startLoading()
-            }
-
-        }
-
-        if (putScoreAssignedLoading.isLoading) {
-            CircularProgressIndicator()
-
-            SendPutCScoreAssignedRequest(
-                scoreAssignedContent = scoreAssignedContent.value!!,
-                loading = putScoreAssignedLoading
-            )
-        }
-
-
-    }
+    )
 }
+

@@ -4,20 +4,17 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Button
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.RadioButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.gradeattendancemanagement.courserecord.types.Attendance
 import com.example.gradeattendancemanagement.courserecord.types.CourseRecordContent
 import com.example.gradeattendancemanagement.courserecord.types.assignedattendance.AssignedAttendance
-import com.example.gradeattendancemanagement.courserecord.types.assignedattendance.AttendancesCheck
 import com.example.gradeattendancemanagement.miscellaneous.components.RoundedButton
 import com.example.gradeattendancemanagement.miscellaneous.components.SelectMenu
 import com.example.gradeattendancemanagement.miscellaneous.hooks.useLoading
@@ -50,19 +47,39 @@ fun CourseRecordAttendance(courseRecordContent: CourseRecordContent) {
 
     LazyColumn {
         this.items(count = 1, itemContent = {
-            SelectMenu(
-                menuItems = courseRecordContent.attendances.map { attendance: Attendance -> attendance.date },
-                menuExpandedState = expanded.value,
-                placeholder = "Seleccione una fecha",
-                updateMenuExpandStatus = { expanded.value = true },
-                onDismissMenuView = { expanded.value = false },
-                onMenuItemclick = { newIndex, selectedIndex ->
-                    selectedIndex.value = newIndex
-                    attendance.value =
-                        courseRecordContent.attendances.filterIndexed { index, _ -> index === selectedIndex.value }[0]
-                    expanded.value = false
+            Row(horizontalArrangement = Arrangement.Center) {
+
+                SelectMenu(
+                    modifier = Modifier.fillMaxWidth(0.5f),
+                    menuItems = courseRecordContent.attendances.map { attendance: Attendance -> attendance.date },
+                    menuExpandedState = expanded.value,
+                    placeholder = "Seleccione una fecha",
+                    updateMenuExpandStatus = { expanded.value = true },
+                    onDismissMenuView = { expanded.value = false },
+                    onMenuItemclick = { newIndex, selectedIndex ->
+                        selectedIndex.value = newIndex
+                        attendance.value =
+                            courseRecordContent.attendances.filterIndexed { index, _ -> index === selectedIndex.value }[0]
+                        expanded.value = false
+                    }
+                )
+
+                Button(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight()
+                        .fillMaxSize()
+                        .padding(10.dp, top = 15.dp),
+
+                    onClick = {
+                        assignedAttendance.value.attendancesCheck.map { attendancesCheck ->
+                            attendancesCheck.attendanceStatusId = 1
+                        }
+                    }
+                ) {
+                    Text(text = "Marcar todos")
                 }
-            )
+            }
 
             if (getAssignedAttendanceLoading.isLoading) {
                 SendGetAssignedAttendanceRequest(
@@ -162,12 +179,7 @@ fun CourseRecordAttendance(courseRecordContent: CourseRecordContent) {
                         }
 
                     }
-//                    Button(
-//                        modifier = Modifier
-//                            .fillParentMaxWidth(),
-//                        onClick = { putAssignedAttendanceLoading.startLoading() }) {
-//                        Text(text = "Guardar")
-//                    }
+
 
                     if (putAssignedAttendanceLoading.isLoading) {
 

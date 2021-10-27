@@ -1,6 +1,7 @@
 package com.example.gradeattendancemanagement.courserecord.components
 
 import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
 import com.example.gradeattendancemanagement.courserecord.types.Score
 import com.example.gradeattendancemanagement.miscellaneous.components.SelectMenu
 
@@ -10,6 +11,7 @@ fun SelectScore(scores: List<Score>, setScoreId: (Int) -> Unit) {
     var expandedScore by remember { mutableStateOf(false) }
 
     SelectMenu(
+        modifier = Modifier,
         menuItems = scores.map { score -> score.name },
         menuExpandedState = expandedScore,
         placeholder = "Calificaciones",
