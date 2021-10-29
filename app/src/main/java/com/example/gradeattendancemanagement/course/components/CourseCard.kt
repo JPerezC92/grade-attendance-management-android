@@ -1,26 +1,33 @@
 package com.example.gradeattendancemanagement.course.components
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import com.example.gradeattendancemanagement.R
 import com.example.gradeattendancemanagement.course.types.Course
 import com.example.gradeattendancemanagement.miscellaneous.local.LocalRouter
+
+
 
 @Composable
 fun CourseCard(course: Course) {
 
     val router = LocalRouter.current
+
+    val shape = RoundedCornerShape(12.dp)
 
     Card(
         modifier = Modifier
@@ -32,6 +39,22 @@ fun CourseCard(course: Course) {
         Column(
             modifier = Modifier.padding(15.dp)
         ) {
+            Box(
+                modifier = Modifier
+
+            ){
+                Image(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(20.dp)),
+                        //.height(200.dp),
+
+                    painter = painterResource(id = R.drawable.paisaje),
+                    contentDescription = "IMAGEN",
+                )
+            }
+
+
 //            Text(
 //                buildAnnotatedString {
 //                    append("welcome to ")
