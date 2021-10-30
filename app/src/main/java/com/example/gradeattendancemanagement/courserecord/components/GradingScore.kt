@@ -3,6 +3,7 @@ package com.example.gradeattendancemanagement.courserecord.components
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.ClickableText
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
@@ -17,6 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -108,7 +110,7 @@ fun GradingScore(scoreId: MutableState<Int?>, loading: UseLoadingResult, courseR
                         currentScoreAssignedContent.value = scoreAssigned
                         openDialog.value = true
                     }) {
-                    Text(text = if (scoreAssigned.value === 0) "Calificar" else scoreAssigned.value.toString())
+                    Text(text = if (scoreAssigned.value!!.toInt() === 0 || scoreAssigned.value === null) "Calificar" else scoreAssigned.value.toString())
                 }
 
 
@@ -134,6 +136,10 @@ fun GradingScore(scoreId: MutableState<Int?>, loading: UseLoadingResult, courseR
         dismissDialog = { openDialog.value = false },
         content = {
 
+            var scoreValue = remember {
+                mutableStateOf(currentScoreAssignedContent.value!!.value.toString())
+            }
+
             Column() {
                 Text(
                     modifier = Modifier
@@ -148,19 +154,29 @@ fun GradingScore(scoreId: MutableState<Int?>, loading: UseLoadingResult, courseR
                 )
 
                 TextField(
+                    keyboardOptions = KeyboardOptions.Default.copy(
+                        keyboardType = KeyboardType.Number
+                    ),
                     textStyle = TextStyle(
                         fontWeight = FontWeight.Bold,
                         fontSize = 20.sp,
                         textAlign = TextAlign.Center
                     ),
 
-                    value = if (currentScoreAssignedContent.value!!.value === 0) "" else currentScoreAssignedContent.value!!.value.toString(),
+                    value = if (currentScoreAssignedContent.value!!.value === 0f || currentScoreAssignedContent.value!!.value == null) {
+                        ""
+                    } else {
+                        scoreValue.value
+                    },
                     onValueChange = { newValue ->
-                        if (newValue.length !== 0)
+
+                        scoreValue.value = newValue
+
+                        if (scoreValue.value.isNotEmpty()) {
                             currentScoreAssignedContent!!.value!!.value =
-                                Integer.parseInt(newValue.trim())
-                        else
-                            currentScoreAssignedContent!!.value!!.value = 0
+                                newValue.trim().toFloatOrNull()
+                        }
+
 
                     })
 

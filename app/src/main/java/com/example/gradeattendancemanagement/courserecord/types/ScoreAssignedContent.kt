@@ -4,7 +4,7 @@ data class ScoreAssignedContent(
     val id: Int,
     val firstname: String,
     val lastname: String,
-    var value: Int,
+    var value: Float?,
     val scoreId: Int,
     val studentId: Int,
     val activityId: Int,

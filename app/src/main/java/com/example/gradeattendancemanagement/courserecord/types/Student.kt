@@ -5,7 +5,7 @@ data class Student(
     val attendances: Attendances,
     val courseRecordId: Int,
     val created_at: String,
-    val finalScore: Int,
+    val finalScore: Float,
     val finalScoreRounded: Int,
     val firstname: String,
     val id: Int,
