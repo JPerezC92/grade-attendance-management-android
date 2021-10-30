@@ -14,20 +14,19 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.gradeattendancemanagement.R
 import com.example.gradeattendancemanagement.course.types.Course
 import com.example.gradeattendancemanagement.miscellaneous.local.LocalRouter
-
 
 
 @Composable
 fun CourseCard(course: Course) {
 
     val router = LocalRouter.current
-
-    val shape = RoundedCornerShape(12.dp)
 
     Card(
         modifier = Modifier
@@ -42,12 +41,11 @@ fun CourseCard(course: Course) {
             Box(
                 modifier = Modifier
 
-            ){
+            ) {
                 Image(
                     modifier = Modifier
                         .fillMaxWidth()
                         .clip(RoundedCornerShape(20.dp)),
-                        //.height(200.dp),
 
                     painter = painterResource(id = R.drawable.paisaje),
                     contentDescription = "IMAGEN",
@@ -55,37 +53,22 @@ fun CourseCard(course: Course) {
             }
 
 
-//            Text(
-//                buildAnnotatedString {
-//                    append("welcome to ")
-//                    withStyle(
-//                        style = SpanStyle(fontWeight = FontWeight.W900, color = Color(0xFF4552B8))
-//                    ) {
-//                        append("Jetpack Compose Playground")
-//                    }
-//                }
-//            )
-//            Text(
-//                buildAnnotatedString {
-//                    append("Now you are in the ")
-//                    withStyle(style = SpanStyle(fontWeight = FontWeight.W900)) {
-//                        append("Card")
-//                    }
-//                    append(" section")
-//                }
-//            )
 
             Text(
-                buildAnnotatedString {
+                text = buildAnnotatedString {
                     withStyle(
-                        style = SpanStyle(fontWeight = FontWeight.W900, color = Color(0xFF4552B8))
+                        style = SpanStyle(
+                            fontWeight = FontWeight.W900,
+                            color = Color(0xFF4552B8),
+                            fontSize = 20.sp
+                        )
                     ) {
                         append(course.name)
                     }
-                }
+                }, textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth().padding(top = 10.dp)
             )
 
-            Text(text = course.id.toString())
+
         }
     }
 }
