@@ -17,6 +17,7 @@ val CYAN700 = Color(0xff008ba3)  // SecondaryVariant
 val LIGHTBLUE50 = Color(0xffe1f5fe)  // Background
 val LIGHTBLUE100 = Color(0xffb3e5fc)  // Surface
 val RED600 = Color(0xffe53935)  //Error
+val WHITE = Color(0xFFFFFFFF)  //Error
 
 /*
     BLUE DARK PALETTE

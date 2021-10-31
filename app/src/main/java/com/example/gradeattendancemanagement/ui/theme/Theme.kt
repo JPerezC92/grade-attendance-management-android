@@ -6,6 +6,7 @@ import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+
 /*
 private val DarkColorPalette = darkColors(
     primary = Purple200,
@@ -31,7 +32,7 @@ private val LightColorPalette = lightColors(
 )
 */
 private val DarkColorPalette = darkColors(
-    primary =   BLUE900,
+    primary = BLUE900,
     primaryVariant = BLUE950,
     secondary = CYAN900,
     secondaryVariant = CYAN800,
@@ -46,11 +47,11 @@ private val DarkColorPalette = darkColors(
 )
 
 private val LightColorPalette = lightColors(
-    primary =   Blue500,
+    primary = Blue500,
     primaryVariant = BLUE800,
     secondary = CYAN500,
     secondaryVariant = CYAN700,
-    background = LIGHTBLUE50,
+    background = WHITE,
     surface = Color.White,
     error = RED600,
     onPrimary = Color.Black,
@@ -65,11 +66,14 @@ fun GradeAttendanceManagementTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable() () -> Unit
 ) {
-    val colors = if (darkTheme) {
-        DarkColorPalette
-    } else {
-        LightColorPalette
-    }
+//    val colors = if (darkTheme) {
+//        DarkColorPalette
+//    } else {
+//        LightColorPalette
+//    }
+
+    val colors = LightColorPalette
+
 
     MaterialTheme(
         colors = colors,

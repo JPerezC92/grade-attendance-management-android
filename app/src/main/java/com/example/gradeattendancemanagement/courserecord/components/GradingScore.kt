@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
@@ -48,7 +47,7 @@ fun GradingScore(scoreId: MutableState<Int?>, loading: UseLoadingResult, courseR
             setScoreAssignedContent = setScoreAssignedContent,
             loading = loading
         )
-        CircularProgressIndicator()
+
     } else {
 
 

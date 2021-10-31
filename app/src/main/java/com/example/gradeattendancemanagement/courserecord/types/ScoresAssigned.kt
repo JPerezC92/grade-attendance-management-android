@@ -7,5 +7,5 @@ data class ScoresAssigned(
     val scoreId: Int,
     val studentId: Int,
     val updated_at: String,
-    val value: Int
+    val value: Float?
 )

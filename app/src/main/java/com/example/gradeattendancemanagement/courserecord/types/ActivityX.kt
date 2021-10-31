@@ -1,7 +1,7 @@
 package com.example.gradeattendancemanagement.courserecord.types
 
 data class ActivityX(
-    val average: Int,
+    val average: Float?,
     val courseRecordId: Int,
     val created_at: String,
     val id: Int,
