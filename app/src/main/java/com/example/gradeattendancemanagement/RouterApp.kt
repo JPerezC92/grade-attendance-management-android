@@ -1,5 +1,6 @@
 package com.example.gradeattendancemanagement
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -50,19 +51,33 @@ fun RouterApp() {
         }
 
         composable(CoursesScreen.route) {
-            CoursesScreen()
+            router.setNavTitle("Cursos")
+            Column() {
+                MainScreen(){
+                    CoursesScreen()
+                }
+            }
         }
 
         composable(CourseContentScreen.route) {
             var courseId = it.arguments?.getString("courseId")
-
-            CourseContentScreen(courseId = courseId!!)
+            router.setNavTitle("Registros")
+            Column() {
+                MainScreen(){
+                    CourseContentScreen(courseId = courseId!!)
+                }
+            }
         }
 
         composable(CourseRecordScreen.route) {
             var courseRecordId = it.arguments?.getString("courseRecordId")
+            router.setNavTitle("Registro")
+            Column() {
+                MainScreen(){
+                    CourseRecordScreen(courseRecordId = courseRecordId!!)
+                }
+            }
 
-            CourseRecordScreen(courseRecordId = courseRecordId!!)
         }
     }
 }

@@ -8,5 +8,7 @@ data class UseRouterContextResult(
     val navToLogin: () -> Unit,
     val navToCourses: () -> Unit,
     val navToCourseContent: (courseId: String) -> Unit,
-    val navToCourseRecord: (courseRecordId: String) -> Unit
+    val navToCourseRecord: (courseRecordId: String) -> Unit,
+    val navTitle: String ,
+    val setNavTitle: (String) -> Unit
 )

@@ -1,6 +1,8 @@
 package com.example.gradeattendancemanagement.miscellaneous.context
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.navigation.compose.rememberNavController
 import com.example.gradeattendancemanagement.miscellaneous.types.UseRouterContextResult
 import com.example.gradeattendancemanagement.miscellaneous.utils.Route.*
@@ -25,12 +27,20 @@ fun useRouterContext(): UseRouterContextResult {
             )
         }
 
+    val title = remember { mutableStateOf<String>("") }
+
+    val setTitle = fun (stitle: String){
+        title.value =  stitle
+    }
+
     return UseRouterContextResult(
         routerAppController = routerAppController,
         navToRegister = navToRegister,
         navToLogin = navToLogin,
         navToCourses = navToCourses,
         navToCourseContent = navToCourseContent,
-        navToCourseRecord = navToCourseRecord
+        navToCourseRecord = navToCourseRecord,
+        navTitle = title.value,
+        setNavTitle = setTitle
     )
 }
