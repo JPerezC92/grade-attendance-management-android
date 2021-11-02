@@ -53,7 +53,7 @@ fun RouterApp() {
         composable(CoursesScreen.route) {
             router.setNavTitle("Cursos")
             Column() {
-                MainScreen(){
+                MainScreen() {
                     CoursesScreen()
                 }
             }
@@ -63,7 +63,7 @@ fun RouterApp() {
             var courseId = it.arguments?.getString("courseId")
             router.setNavTitle("Registros")
             Column() {
-                MainScreen(){
+                MainScreen() {
                     CourseContentScreen(courseId = courseId!!)
                 }
             }
@@ -71,10 +71,25 @@ fun RouterApp() {
 
         composable(CourseRecordScreen.route) {
             var courseRecordId = it.arguments?.getString("courseRecordId")
-            router.setNavTitle("Registro")
-            Column() {
-                MainScreen(){
-                    CourseRecordScreen(courseRecordId = courseRecordId!!)
+            var componentView = it.arguments?.getString("componentView")
+
+            if (componentView !== null) {
+                val title = if (componentView == "GRADE") "Calificaciones" else "Asistencias"
+                router.setNavTitle(title)
+            }
+
+
+            if (
+                courseRecordId !== null &&
+                componentView !== null
+            ) {
+                Column() {
+                    MainScreen() {
+                        CourseRecordScreen(
+                            courseRecordId = courseRecordId,
+                            componentView = componentView
+                        )
+                    }
                 }
             }
 

@@ -10,6 +10,15 @@ import com.example.gradeattendancemanagement.miscellaneous.utils.Route.*
 
 @Composable
 fun useRouterContext(): UseRouterContextResult {
+
+    val currentCourseRecordId = remember {
+        mutableStateOf<Int?>(null)
+    }
+
+    val setCurrentCourseRecordId = fun(courseRecordId: Int) {
+        currentCourseRecordId.value = courseRecordId
+    }
+
     val routerAppController = rememberNavController()
 
     val navToRegister = { routerAppController.navigate(RegisterScreen.route) }
@@ -18,20 +27,31 @@ fun useRouterContext(): UseRouterContextResult {
     val navToCourseContent =
         fun(courseId: String) { routerAppController.navigate(CourseContentScreen.create(courseId)) }
 
-    val navToCourseRecord =
-        fun(courseRecordId: String) {
+    val navToCourseRecordGrade =
+        fun() {
             routerAppController.navigate(
                 CourseRecordScreen.create(
-                    courseRecordId
+                    currentCourseRecordId.value!!.toString(), "GRADE"
                 )
             )
         }
 
-    val title = remember { mutableStateOf<String>("") }
+    val navToCourseRecordAttendance =
+        fun() {
+            routerAppController.navigate(
+                CourseRecordScreen.create(
+                    currentCourseRecordId.value!!.toString(), "ATTENDANCE"
+                )
+            )
+        }
 
-    val setTitle = fun (stitle: String){
-        title.value =  stitle
+    val title = remember { mutableStateOf("") }
+
+    val setTitle = fun(stitle: String) {
+        title.value = stitle
     }
+
+
 
     return UseRouterContextResult(
         routerAppController = routerAppController,
@@ -39,8 +59,11 @@ fun useRouterContext(): UseRouterContextResult {
         navToLogin = navToLogin,
         navToCourses = navToCourses,
         navToCourseContent = navToCourseContent,
-        navToCourseRecord = navToCourseRecord,
+        navToCourseRecordGrade = navToCourseRecordGrade,
+        navToCourseRecordAttendance = navToCourseRecordAttendance,
         navTitle = title.value,
-        setNavTitle = setTitle
+        setNavTitle = setTitle,
+        currentCourseRecordId = currentCourseRecordId.value,
+        setCurrentCourseRecordId = setCurrentCourseRecordId
     )
 }

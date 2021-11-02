@@ -8,8 +8,9 @@ sealed class Route(val route: String) {
         fun create(courseId: String) = "coursesScreen/$courseId"
     }
 
-    object CourseRecordScreen : Route("courseRecordScreen/{courseRecordId}") {
-        fun create(courseRecordId: String) = "courseRecordScreen/$courseRecordId"
+    object CourseRecordScreen : Route("courseRecordScreen/{courseRecordId}/{componentView}") {
+        fun create(courseRecordId: String, componentView: String) =
+            "courseRecordScreen/$courseRecordId/$componentView"
     }
 
 }

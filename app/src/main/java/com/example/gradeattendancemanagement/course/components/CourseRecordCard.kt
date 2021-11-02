@@ -26,7 +26,10 @@ fun CourseRecordCard(courseRecord: CourseRecord) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(15.dp)
-            .clickable { router.navToCourseRecord(courseRecord.id.toString()) },
+            .clickable {
+                router.setCurrentCourseRecordId(courseRecord.id)
+                router.navToCourseRecordGrade()
+            },
         elevation = 10.dp
     ) {
         Column(

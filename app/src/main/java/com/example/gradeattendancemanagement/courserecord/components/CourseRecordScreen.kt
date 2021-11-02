@@ -1,14 +1,14 @@
 package com.example.gradeattendancemanagement.courserecord.components
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.*
-import androidx.compose.runtime.*
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.unit.dp
 import com.example.gradeattendancemanagement.auth.local.LocalAuth
 import com.example.gradeattendancemanagement.courserecord.repositories.LaravelGetCourseRecordRepository
@@ -20,11 +20,9 @@ import com.example.gradeattendancemanagement.miscellaneous.hooks.useLoading
 
 @Composable
 fun CourseRecordScreen(
-    courseRecordId: String
+    courseRecordId: String,
+    componentView: String
 ) {
-
-    val active = remember { mutableStateOf("GRADE") }
-
     val authContext = LocalAuth.current
 
     val fetchCourseRecord = useFetch(
@@ -62,15 +60,6 @@ fun CourseRecordScreen(
             .padding(16.dp)
     ) {
 
-        Row {
-
-            Button(onClick = { active.value = "GRADE" }) {
-                Text(text = "Calificaciones")
-            }
-            Button(onClick = { active.value = "ATTENDANCE" }) {
-                Text(text = "Asistencias")
-            }
-        }
 
         if (courseRecordContent !== null) {
 
@@ -81,8 +70,7 @@ fun CourseRecordScreen(
         }
 
         if (courseRecordContent is CourseRecordContent) {
-
-            if (active.value === "GRADE") {
+            if (componentView == "GRADE") {
                 CourseRecordGrade(
                     courseRecordContent = courseRecordContent,
                     setActivity = setActivity,
@@ -93,7 +81,7 @@ fun CourseRecordScreen(
                 )
             }
 
-            if (active.value === "ATTENDANCE") {
+            if (componentView == "ATTENDANCE") {
                 CourseRecordAttendance(courseRecordContent = courseRecordContent)
             }
         }
