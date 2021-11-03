@@ -30,6 +30,7 @@ import kotlinx.coroutines.CoroutineScope
 import okio.Utf8.size
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.font.FontStyle
 import androidx.navigation.compose.rememberNavController
 import com.example.gradeattendancemanagement.RouterApp
 import com.example.gradeattendancemanagement.miscellaneous.context.useRouterContext
@@ -51,15 +52,22 @@ fun Drawer(
                 contentDescription = "logo Image",
                 modifier = Modifier
                         .size(70.dp)
+                        .padding(6.dp)
                         .clip(CircleShape)
         )
 
         Text(
-                text = "USER_NAME"
+                text = "USER_NAME",
+                style = TextStyle(
+                    fontSize = 18.sp,
+                    fontStyle = FontStyle.Italic)
+
         )
 
         Text(
-                text = "USER-EMAIL"
+                text = "USER-EMAIL",
+                style = TextStyle(
+                    fontSize = 18.sp)
         )
 
         Divider(
