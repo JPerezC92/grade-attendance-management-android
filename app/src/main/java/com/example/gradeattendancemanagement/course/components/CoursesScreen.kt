@@ -13,15 +13,16 @@ import com.example.gradeattendancemanagement.auth.local.LocalAuth
 import com.example.gradeattendancemanagement.course.repositories.LaravelGetCoursesRepository
 import com.example.gradeattendancemanagement.course.types.Course
 import com.example.gradeattendancemanagement.miscellaneous.hooks.useFetch
-import com.example.gradeattendancemanagement.miscellaneous.hooks.useLoading
 
 
 @Composable
 fun CoursesScreen() {
     val authContext = LocalAuth.current
 
+    val token = authContext.token ?: ""
+
     val fetchCourses =
-        useFetch(repository = LaravelGetCoursesRepository(token = authContext.token!!))
+        useFetch(repository = LaravelGetCoursesRepository(token = token))
 
     Column(
         modifier = Modifier

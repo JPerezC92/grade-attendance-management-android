@@ -7,5 +7,6 @@ data class UseAuthContextResult(
     val token: String?,
     val user: User?,
     val setToken: (newToken: String) -> Unit,
-    val setUser: SetUser
+    val setUser: SetUser,
+    val logout: () -> Unit,
 )

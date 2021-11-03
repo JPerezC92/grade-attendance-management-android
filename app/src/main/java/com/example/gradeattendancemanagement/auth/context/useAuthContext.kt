@@ -16,11 +16,16 @@ fun useAuthContext(): UseAuthContextResult {
     val setToken = fun(newToken: String) { token.value = newToken }
 
     val setUser = fun(newUser: User) { user.value = newUser }
+    val logout = fun() {
+        user.value = null
+        token.value = null
+    }
 
     return UseAuthContextResult(
         token = token.value,
         user = user.value,
         setToken = setToken,
-        setUser = setUser
+        setUser = setUser,
+        logout = logout
     )
 }

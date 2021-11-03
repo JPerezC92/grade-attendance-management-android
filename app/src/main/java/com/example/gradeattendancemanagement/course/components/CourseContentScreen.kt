@@ -21,10 +21,12 @@ fun CourseContentScreen(courseId: String) {
 
     val authContext = LocalAuth.current
 
+    val token = authContext.token ?: ""
+
     val fetchCourseContent =
         useFetch(
             repository = LaravelGetCourseContentRepository(
-                token = authContext.token!!,
+                token = token,
                 courseId = courseId
             )
         )

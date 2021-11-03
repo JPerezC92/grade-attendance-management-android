@@ -32,6 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.navigation.compose.rememberNavController
 import com.example.gradeattendancemanagement.RouterApp
+import com.example.gradeattendancemanagement.auth.local.LocalAuth
 import com.example.gradeattendancemanagement.miscellaneous.context.useRouterContext
 import com.example.gradeattendancemanagement.miscellaneous.local.LocalRouter
 import com.example.gradeattendancemanagement.miscellaneous.utils.Route
@@ -87,6 +88,8 @@ fun Drawer(
 fun DrawerItem(
     selected: Boolean
 ) {
+
+    val authContext = LocalAuth.current
     val router = LocalRouter.current
 
     Column {
@@ -156,34 +159,34 @@ fun DrawerItem(
         }
 
         //REGRESAR
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(56.dp)
-                .padding(6.dp)
-                .clip(RoundedCornerShape(12))
-                .background(if (selected) Color.Blue.copy(alpha = 0.25f) else Color.Transparent)
-                .padding(8.dp)
-                .clickable { },
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Icon(
-                modifier = Modifier
-                    .size(32.dp),
-                imageVector = Icons.Default.ArrowBack,
-                contentDescription = "Regresar",
-                tint = if (selected) Color.Blue else Color.Gray
-            )
-            Spacer(
-                modifier = Modifier
-                    .width(12.dp)
-            )
-            Text(
-                text = "Regresar",
-                style = TextStyle(fontSize = 18.sp),
-                color = if (selected) Color.Blue else Color.Black
-            )
-        }
+//        Row(
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .height(56.dp)
+//                .padding(6.dp)
+//                .clip(RoundedCornerShape(12))
+//                .background(if (selected) Color.Blue.copy(alpha = 0.25f) else Color.Transparent)
+//                .padding(8.dp)
+//                .clickable { },
+//            verticalAlignment = Alignment.CenterVertically
+//        ) {
+//            Icon(
+//                modifier = Modifier
+//                    .size(32.dp),
+//                imageVector = Icons.Default.ArrowBack,
+//                contentDescription = "Regresar",
+//                tint = if (selected) Color.Blue else Color.Gray
+//            )
+//            Spacer(
+//                modifier = Modifier
+//                    .width(12.dp)
+//            )
+//            Text(
+//                text = "Regresar",
+//                style = TextStyle(fontSize = 18.sp),
+//                color = if (selected) Color.Blue else Color.Black
+//            )
+//        }
         //CERRAR SESION
         Row(
             modifier = Modifier
@@ -193,7 +196,7 @@ fun DrawerItem(
                 .clip(RoundedCornerShape(12))
                 .background(if (selected) Color.Blue.copy(alpha = 0.25f) else Color.Transparent)
                 .padding(8.dp)
-                .clickable { },
+                .clickable { authContext.logout() },
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(

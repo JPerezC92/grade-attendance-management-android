@@ -25,9 +25,11 @@ fun CourseRecordScreen(
 ) {
     val authContext = LocalAuth.current
 
+    val token = authContext.token ?: ""
+
     val fetchCourseRecord = useFetch(
         repository = LaravelGetCourseRecordRepository(
-            token = authContext.token!!,
+            token = token,
             courseRecordId = courseRecordId
         )
     )

@@ -7,11 +7,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.gradeattendancemanagement.auth.components.IfUserAuthenticatedGotoApp
+import com.example.gradeattendancemanagement.auth.components.*
 import com.example.gradeattendancemanagement.miscellaneous.utils.Route.*
-import com.example.gradeattendancemanagement.auth.components.LoginScreen
-import com.example.gradeattendancemanagement.auth.components.RegisterScreen
-import com.example.gradeattendancemanagement.auth.components.SendGetUserRequest
 import com.example.gradeattendancemanagement.auth.local.LocalAuth
 import com.example.gradeattendancemanagement.course.components.CourseContentScreen
 import com.example.gradeattendancemanagement.course.components.CoursesScreen
@@ -52,9 +49,11 @@ fun RouterApp() {
 
         composable(CoursesScreen.route) {
             router.setNavTitle("Cursos")
-            Column() {
-                MainScreen() {
-                    CoursesScreen()
+            IfUserIsAuthenticated {
+                Column() {
+                    MainScreen() {
+                        CoursesScreen()
+                    }
                 }
             }
         }
@@ -62,9 +61,12 @@ fun RouterApp() {
         composable(CourseContentScreen.route) {
             var courseId = it.arguments?.getString("courseId")
             router.setNavTitle("Registros")
-            Column() {
-                MainScreen() {
-                    CourseContentScreen(courseId = courseId!!)
+
+            IfUserIsAuthenticated {
+                Column() {
+                    MainScreen() {
+                        CourseContentScreen(courseId = courseId!!)
+                    }
                 }
             }
         }
@@ -83,16 +85,18 @@ fun RouterApp() {
                 courseRecordId !== null &&
                 componentView !== null
             ) {
-                Column() {
-                    MainScreen() {
-                        CourseRecordScreen(
-                            courseRecordId = courseRecordId,
-                            componentView = componentView
-                        )
+
+                IfUserIsAuthenticated {
+                    Column() {
+                        MainScreen() {
+                            CourseRecordScreen(
+                                courseRecordId = courseRecordId,
+                                componentView = componentView
+                            )
+                        }
                     }
                 }
             }
-
         }
     }
 }
