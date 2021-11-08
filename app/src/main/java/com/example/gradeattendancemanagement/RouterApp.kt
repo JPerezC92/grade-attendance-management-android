@@ -16,6 +16,7 @@ import com.example.gradeattendancemanagement.auth.local.LocalAuth
 import com.example.gradeattendancemanagement.course.components.CourseContentScreen
 import com.example.gradeattendancemanagement.course.components.CoursesScreen
 import com.example.gradeattendancemanagement.courserecord.components.CourseRecordScreen
+import com.example.gradeattendancemanagement.miscellaneous.components.SplashScreen
 import com.example.gradeattendancemanagement.miscellaneous.hooks.useLoading
 import com.example.gradeattendancemanagement.miscellaneous.local.LocalRouter
 
@@ -36,11 +37,14 @@ fun RouterApp() {
 
 
 
-    NavHost(navController = router.routerAppController, startDestination = LoginScreen.route) {
+    NavHost(navController = router.routerAppController, startDestination = SplashScreen.route) {
+        composable(SplashScreen.route) {
+            SplashScreen()
+        }
+
         composable(LoginScreen.route) {
             IfUserAuthenticatedGotoApp {
                 LoginScreen()
-
             }
         }
 

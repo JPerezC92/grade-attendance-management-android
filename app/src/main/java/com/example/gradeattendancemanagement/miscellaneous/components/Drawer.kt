@@ -54,6 +54,7 @@ fun Drawer(
                         .size(70.dp)
                         .padding(6.dp)
                         .clip(CircleShape)
+                        .padding(horizontal = 5.dp, vertical = 5.dp)
         )
 
         Text(
