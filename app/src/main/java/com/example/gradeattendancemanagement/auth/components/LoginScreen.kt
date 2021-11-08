@@ -77,7 +77,9 @@ fun LoginScreen() {
         Image(
             painter = painterResource(id = drawable.logo_senati),
             contentDescription = "Login Image",
-            contentScale = ContentScale.Inside
+            contentScale = ContentScale.Inside,
+            modifier = Modifier
+                .padding(vertical = 40.dp)
         )
 
         Box(

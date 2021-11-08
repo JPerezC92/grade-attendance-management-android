@@ -3,6 +3,7 @@ package com.example.gradeattendancemanagement.course.components
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Text
@@ -65,7 +66,9 @@ fun CourseCard(course: Course) {
                     ) {
                         append(course.name)
                     }
-                }, textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth().padding(top = 10.dp)
+                }, textAlign = TextAlign.Center, modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 10.dp)
             )
 
 

@@ -2,14 +2,12 @@ package com.example.gradeattendancemanagement.miscellaneous.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Divider
-import androidx.compose.material.Icon
-import androidx.compose.material.ScaffoldState
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Grade
@@ -52,23 +50,27 @@ fun Drawer(
                 contentDescription = "logo Image",
                 modifier = Modifier
                         .size(70.dp)
-                        .padding(6.dp)
+                        .padding(10.dp)
                         .clip(CircleShape)
-                        .padding(horizontal = 5.dp, vertical = 5.dp)
-        )
-
-        Text(
-                text = "USER_NAME",
-                style = TextStyle(
-                    fontSize = 18.sp,
-                    fontStyle = FontStyle.Italic)
+                        .border(1.5.dp, MaterialTheme.colors.secondary, CircleShape)
 
         )
 
         Text(
-                text = "USER-EMAIL",
+                text = "User1",
                 style = TextStyle(
-                    fontSize = 18.sp)
+                    fontSize = 20.sp,
+                    fontStyle = FontStyle.Italic),
+                modifier = Modifier
+                    .padding(10.dp)
+        )
+
+        Text(
+                text = "user1@gmail.com",
+                style = TextStyle(
+                    fontSize = 14.sp),
+                modifier = Modifier
+                    .padding(10.dp)
         )
 
         Divider(
