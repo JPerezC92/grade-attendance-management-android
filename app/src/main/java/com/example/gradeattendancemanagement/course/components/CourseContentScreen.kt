@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -33,25 +34,26 @@ fun CourseContentScreen(courseId: String) {
 
     val courseContent = fetchCourseContent.data?.payload
 
-    if (courseContent is CourseContent) {
+            if (courseContent is CourseContent) {
 
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp)
-        ) {
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(16.dp)
+                ) {
+                    this.items(count = 1, itemContent = {
+                        Text(
+                            text = courseContent.name,
+                            modifier = Modifier.fillMaxWidth(),
+                            textAlign = TextAlign.Center,
+                            fontSize = 25.sp,
+                        )
 
-            Text(
-                text = courseContent.name,
-                modifier = Modifier.fillMaxWidth(),
-                textAlign = TextAlign.Center,
-                fontSize = 25.sp,
-            )
+                        courseContent.course_records.map { courseRecord: CourseRecord ->
+                            CourseRecordCard(courseRecord)
+                        }
+                    })
 
-            courseContent.course_records.map { courseRecord: CourseRecord ->
-                CourseRecordCard(courseRecord)
             }
-
-        }
     }
 }

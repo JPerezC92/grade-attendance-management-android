@@ -1,6 +1,7 @@
 package com.example.gradeattendancemanagement.course.components
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -24,27 +25,29 @@ fun CoursesScreen() {
     val fetchCourses =
         useFetch(repository = LaravelGetCoursesRepository(token = token))
 
-    Column(
+    LazyColumn (
         modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
+        .fillMaxSize()
+        .padding(16.dp)
     ) {
-
+        this.items(count = 1, itemContent = {
+            
 //        authContext.user?.let { Text(text = it.firstname) }
 
-        if (fetchCourses.isLoading) {
-            CircularProgressIndicator(modifier = Modifier.align(Alignment.CenterHorizontally))
-        } else {
-            Text(
-                text = "Cursos",
-                modifier = Modifier.fillMaxWidth(),
-                textAlign = TextAlign.Center,
-                fontSize = 25.sp,
-            )
-            fetchCourses.data?.payload?.map { course: Course -> CourseCard(course = course) }
-        }
+                if (fetchCourses.isLoading) {
+                    CircularProgressIndicator()
+                } else {
+                    Text(
+                        text = "Cursos",
+                        modifier = Modifier.fillMaxWidth(),
+                        textAlign = TextAlign.Center,
+                        fontSize = 25.sp,
+                    )
+                    fetchCourses.data?.payload?.map { course: Course -> CourseCard(course = course) }
+                }
 
-
+        })
     }
+
 }
 

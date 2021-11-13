@@ -4,6 +4,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Button
+import androidx.compose.material.Divider
 import androidx.compose.material.RadioButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
@@ -101,7 +102,6 @@ fun CourseRecordAttendance(courseRecordContent: CourseRecordContent) {
                             text = "Nombres",
                             Modifier
                                 .fillParentMaxWidth(0.7F)
-                                .border(1.dp, Color.Black)
                                 .padding(8.dp),
                             textAlign = TextAlign.Center
                         )
@@ -110,7 +110,6 @@ fun CourseRecordAttendance(courseRecordContent: CourseRecordContent) {
                             text = "A",
                             Modifier
                                 .fillParentMaxWidth(0.1F)
-                                .border(1.dp, Color.Black)
                                 .padding(8.dp),
                             textAlign = TextAlign.Center
                         )
@@ -119,7 +118,6 @@ fun CourseRecordAttendance(courseRecordContent: CourseRecordContent) {
                             text = "T",
                             Modifier
                                 .fillParentMaxWidth(0.1F)
-                                .border(1.dp, Color.Black)
                                 .padding(8.dp),
                             textAlign = TextAlign.Center
                         )
@@ -128,19 +126,20 @@ fun CourseRecordAttendance(courseRecordContent: CourseRecordContent) {
                             text = "I",
                             Modifier
                                 .fillParentMaxWidth(0.1F)
-                                .border(1.dp, Color.Black)
                                 .padding(8.dp),
                             textAlign = TextAlign.Center
                         )
 
                     }
+
+                    Divider()
+
                     assignedAttendance.value.attendancesCheck.map { attendancesCheck ->
                         Row() {
                             Text(
                                 text = "${attendancesCheck.firstname}",
                                 Modifier
                                     .fillParentMaxWidth(0.7F)
-                                    .border(1.dp, Color.Black)
                                     .padding(8.dp)
                                     .height(25.dp)
                             )
@@ -150,7 +149,6 @@ fun CourseRecordAttendance(courseRecordContent: CourseRecordContent) {
                                 RadioButton(
                                     modifier = Modifier
                                         .fillParentMaxWidth(0.1F)
-                                        .border(1.dp, Color.Black)
                                         .padding(8.dp)
                                         .height(25.dp),
                                     selected = if (attendancesCheck.attendanceStatusId !== null) attendanceState.id === attendancesCheck.attendanceStatusId else false,
@@ -159,6 +157,8 @@ fun CourseRecordAttendance(courseRecordContent: CourseRecordContent) {
                                     })
                             }
                         }
+
+                        Divider()
                     }
 
                     Column(

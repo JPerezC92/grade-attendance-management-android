@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
+import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
@@ -25,6 +26,8 @@ import com.example.gradeattendancemanagement.courserecord.types.ScoreAssignedCon
 import com.example.gradeattendancemanagement.miscellaneous.components.Dialog
 import com.example.gradeattendancemanagement.miscellaneous.hooks.useLoading
 import com.example.gradeattendancemanagement.miscellaneous.types.UseLoadingResult
+import java.text.SimpleDateFormat
+import java.util.*
 
 @Composable
 fun GradingScore(scoreId: MutableState<Int?>, loading: UseLoadingResult, courseRecordId: String) {
@@ -61,7 +64,6 @@ fun GradingScore(scoreId: MutableState<Int?>, loading: UseLoadingResult, courseR
                 text = "Nombres",
                 modifier = Modifier
                     .fillMaxWidth(0.7F)
-                    .border(1.dp, Color.Black)
                     .padding(8.dp),
                 textAlign = TextAlign.Center
             )
@@ -71,11 +73,12 @@ fun GradingScore(scoreId: MutableState<Int?>, loading: UseLoadingResult, courseR
                 text = "Notas",
                 modifier = Modifier
                     .fillMaxWidth()
-                    .border(1.dp, Color.Black)
                     .padding(8.dp),
                 textAlign = TextAlign.Center
             )
         }
+
+        Divider()
 
         scoreAssignedContent.value?.map { scoreAssigned ->
             Row(
@@ -87,12 +90,11 @@ fun GradingScore(scoreId: MutableState<Int?>, loading: UseLoadingResult, courseR
                 ClickableText(
                     modifier = Modifier
                         .fillMaxWidth(0.7F)
-                        .border(1.dp, Color.Black)
                         .fillMaxHeight()
                         .padding(top = 15.dp)
                         .padding(horizontal = 10.dp),
                     text = buildAnnotatedString {
-                        append("${scoreAssigned.firstname}")
+                        append("${scoreAssigned.lastname} ${scoreAssigned.firstname[0]}.")
                     },
                     onClick = {
                         currentScoreAssignedContent.value = scoreAssigned
@@ -115,6 +117,7 @@ fun GradingScore(scoreId: MutableState<Int?>, loading: UseLoadingResult, courseR
 
             }
 
+            Divider()
 
         }
 
@@ -144,9 +147,21 @@ fun GradingScore(scoreId: MutableState<Int?>, loading: UseLoadingResult, courseR
                     modifier = Modifier
                         .padding(bottom = 10.dp)
                         .fillMaxWidth(),
-                    text = "${currentScoreAssignedContent.value!!.firstname}",
+                    text = "${currentScoreAssignedContent.value!!.lastname} ${currentScoreAssignedContent.value!!.firstname[0]}.",
                     style = TextStyle(
                         fontSize = 22.sp,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center
+                    )
+                )
+
+                Text(
+                    modifier = Modifier
+                        .padding(bottom = 10.dp)
+                        .fillMaxWidth(),
+                    text = "${currentScoreAssignedContent.value!!.updated_at.toDate().formatTo("dd MMM yyyy")}",
+                    style = TextStyle(
+                        fontSize = 15.sp,
                         fontWeight = FontWeight.Bold,
                         textAlign = TextAlign.Center
                     )
@@ -165,22 +180,40 @@ fun GradingScore(scoreId: MutableState<Int?>, loading: UseLoadingResult, courseR
                     value = if (currentScoreAssignedContent.value!!.value === 0f || currentScoreAssignedContent.value!!.value == null) {
                         ""
                     } else {
-                        scoreValue.value
+                        if (currentScoreAssignedContent.value!!.value == null){
+                            "0"
+                        }
+                        else{
+                            scoreValue.value
+                        }
                     },
                     onValueChange = { newValue ->
 
+                    if (newValue > 20.toString()){
+                        ""
+                    } else {
                         scoreValue.value = newValue
 
                         if (scoreValue.value.isNotEmpty()) {
                             currentScoreAssignedContent!!.value!!.value =
                                 newValue.trim().toFloatOrNull()
                         }
-
-
-                    })
-
+                    }
+                })
             }
         }
     )
+}
+
+fun String.toDate(dateFormat: String = "yyyy-MM-dd HH:mm:ss", timeZone: TimeZone = TimeZone.getTimeZone("UTC")): Date {
+    val parser = SimpleDateFormat(dateFormat, Locale.getDefault())
+    parser.timeZone = timeZone
+    return parser.parse(this)
+}
+
+fun Date.formatTo(dateFormat: String, timeZone: TimeZone = TimeZone.getDefault()): String {
+    val formatter = SimpleDateFormat(dateFormat, Locale.getDefault())
+    formatter.timeZone = timeZone
+    return formatter.format(this)
 }
 

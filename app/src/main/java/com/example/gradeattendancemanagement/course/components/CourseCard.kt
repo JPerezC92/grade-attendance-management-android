@@ -1,9 +1,7 @@
 package com.example.gradeattendancemanagement.course.components
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Text
@@ -29,49 +27,47 @@ fun CourseCard(course: Course) {
 
     val router = LocalRouter.current
 
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(15.dp)
-            .clickable { router.navToCourseContent(course.id.toString()) },
-        elevation = 10.dp
-    ) {
-        Column(
-            modifier = Modifier.padding(15.dp)
-        ) {
-            Box(
+            Card(
                 modifier = Modifier
-
-            ) {
-                Image(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clip(RoundedCornerShape(20.dp)),
-
-                    painter = painterResource(id = R.drawable.paisaje),
-                    contentDescription = "IMAGEN",
-                )
-            }
-
-
-
-            Text(
-                text = buildAnnotatedString {
-                    withStyle(
-                        style = SpanStyle(
-                            fontWeight = FontWeight.W900,
-                            color = Color(0xFF4552B8),
-                            fontSize = 20.sp
-                        )
-                    ) {
-                        append(course.name)
-                    }
-                }, textAlign = TextAlign.Center, modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 10.dp)
-            )
+                    .padding(15.dp)
+                    .clickable { router.navToCourseContent(course.id.toString()) },
+                elevation = 10.dp
+            ) {
+                Column(
+                    modifier = Modifier.padding(15.dp)
+                ) {
+                    Box(
+                        modifier = Modifier
+
+                    ) {
+                        Image(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clip(RoundedCornerShape(20.dp)),
+
+                            painter = painterResource(id = R.drawable.paisaje),
+                            contentDescription = "IMAGEN",
+                        )
+                    }
 
 
-        }
+
+                    Text(
+                        text = buildAnnotatedString {
+                            withStyle(
+                                style = SpanStyle(
+                                    fontWeight = FontWeight.W900,
+                                    color = Color(0xFF4552B8),
+                                    fontSize = 20.sp
+                                )
+                            ) {
+                                append(course.name)
+                            }
+                        }, textAlign = TextAlign.Center, modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 10.dp)
+                    )
+            }
     }
 }

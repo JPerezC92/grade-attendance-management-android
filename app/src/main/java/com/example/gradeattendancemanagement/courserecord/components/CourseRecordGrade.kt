@@ -39,7 +39,6 @@ fun CourseRecordGrade(
                     courseRecordId = courseRecordContent.courseRecord.id.toString()
                 )
             }
-
         })
     }
 }

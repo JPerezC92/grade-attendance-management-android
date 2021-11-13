@@ -11,10 +11,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Grade
-import androidx.compose.material.icons.filled.Grading
-import androidx.compose.material.icons.filled.Logout
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -47,7 +44,7 @@ fun Drawer(
     scope: CoroutineScope,
     scaffoldState: ScaffoldState
 ) {
-    val router = LocalRouter.current
+    val auth = LocalAuth.current
     Column {
         Image(
 /*
@@ -86,11 +83,11 @@ fun Drawer(
         )
 
         Text(
-            text = "USER_NAME"
+            text = "${auth.user?.firstname}"
         )
 
         Text(
-            text = "USER-EMAIL"
+            text = "${auth.user?.email}"
         )
 
         Divider(
@@ -217,6 +214,37 @@ fun DrawerItem(
 //                color = if (selected) Color.Blue else Color.Black
 //            )
 //        }
+
+        //CURSOS
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(56.dp)
+                .padding(6.dp)
+                .clip(RoundedCornerShape(12))
+                .background(if (selected) Color.Blue.copy(alpha = 0.25f) else Color.Transparent)
+                .padding(8.dp)
+                .clickable { router.navToCourses() },
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(
+                modifier = Modifier
+                    .size(32.dp),
+                imageVector = Icons.Default.LibraryBooks,
+                contentDescription = "Cerrar Sesion",
+                tint = if (selected) Color.Blue else Color.Gray
+            )
+            Spacer(
+                modifier = Modifier
+                    .width(12.dp)
+            )
+            Text(
+                text = "Cursos",
+                style = TextStyle(fontSize = 18.sp),
+                color = if (selected) Color.Blue else Color.Black
+            )
+        }
+
         //CERRAR SESION
         Row(
             modifier = Modifier
