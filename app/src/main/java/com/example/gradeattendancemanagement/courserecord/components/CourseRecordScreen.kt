@@ -15,6 +15,7 @@ import com.example.gradeattendancemanagement.courserecord.types.Score
 import com.example.gradeattendancemanagement.miscellaneous.components.SplashScreen
 import com.example.gradeattendancemanagement.miscellaneous.hooks.useFetch
 import com.example.gradeattendancemanagement.miscellaneous.hooks.useLoading
+import com.example.gradeattendancemanagement.miscellaneous.local.LocalRouter
 
 @Composable
 fun CourseRecordScreen(
@@ -22,6 +23,7 @@ fun CourseRecordScreen(
     componentView: String
 ) {
     val authContext = LocalAuth.current
+    val router = LocalRouter.current
 
     val token = authContext.token ?: ""
 
@@ -65,7 +67,7 @@ fun CourseRecordScreen(
                 .padding(16.dp)
         ) {
             Text(text = "Carrera: ${courseRecordContent.courseRecord.career}")
-            Text(text = "Semestre: ${courseRecordContent.courseRecord.semester}")
+            Text(text = "Curso: ${router.currentCourse?.name}")
             Text(text = "Grupo: ${courseRecordContent.courseRecord.group}")
             Text(text = "Turno: ${courseRecordContent.courseRecord.turn}")
 

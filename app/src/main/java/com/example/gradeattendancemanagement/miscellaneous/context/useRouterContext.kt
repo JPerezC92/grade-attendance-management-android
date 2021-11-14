@@ -4,6 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.navigation.compose.rememberNavController
+import com.example.gradeattendancemanagement.course.types.Course
+import com.example.gradeattendancemanagement.course.types.CourseRecord
 import com.example.gradeattendancemanagement.miscellaneous.types.UseRouterContextResult
 import com.example.gradeattendancemanagement.miscellaneous.utils.Route.*
 
@@ -11,12 +13,20 @@ import com.example.gradeattendancemanagement.miscellaneous.utils.Route.*
 @Composable
 fun useRouterContext(): UseRouterContextResult {
 
-    val currentCourseRecordId = remember {
-        mutableStateOf<Int?>(null)
+    val currentCourseRecord = remember {
+        mutableStateOf<CourseRecord?>(null)
     }
 
-    val setCurrentCourseRecordId = fun(courseRecordId: Int) {
-        currentCourseRecordId.value = courseRecordId
+    val currentCourse = remember {
+        mutableStateOf<Course?>(null)
+    }
+
+    val setCurrentCourseRecord = fun(courseRecord: CourseRecord) {
+        currentCourseRecord.value = courseRecord
+    }
+
+    val setCurrentCourse = fun(course: Course) {
+        currentCourse.value = course
     }
 
     val routerAppController = rememberNavController()
@@ -31,7 +41,7 @@ fun useRouterContext(): UseRouterContextResult {
         fun() {
             routerAppController.navigate(
                 CourseRecordScreen.create(
-                    currentCourseRecordId.value!!.toString(), "GRADE"
+                    currentCourseRecord.value!!.id.toString(), "GRADE"
                 )
             )
         }
@@ -40,7 +50,7 @@ fun useRouterContext(): UseRouterContextResult {
         fun() {
             routerAppController.navigate(
                 CourseRecordScreen.create(
-                    currentCourseRecordId.value!!.toString(), "ATTENDANCE"
+                    currentCourseRecord.value!!.id.toString(), "ATTENDANCE"
                 )
             )
         }
@@ -63,7 +73,10 @@ fun useRouterContext(): UseRouterContextResult {
         navToCourseRecordAttendance = navToCourseRecordAttendance,
         navTitle = title.value,
         setNavTitle = setTitle,
-        currentCourseRecordId = currentCourseRecordId.value,
-        setCurrentCourseRecordId = setCurrentCourseRecordId
-    )
+        currentCourseRecord = currentCourseRecord.value,
+        setCurrentCourseRecord = setCurrentCourseRecord,
+        currentCourse = currentCourse.value,
+        setCurrentCourse = setCurrentCourse,
+
+        )
 }

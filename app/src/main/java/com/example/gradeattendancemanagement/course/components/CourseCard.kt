@@ -27,47 +27,50 @@ fun CourseCard(course: Course) {
 
     val router = LocalRouter.current
 
-            Card(
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(15.dp)
+            .clickable {
+                router.setCurrentCourse(course)
+                router.navToCourseContent(course.id.toString())
+            },
+        elevation = 10.dp
+    ) {
+        Column(
+            modifier = Modifier.padding(15.dp)
+        ) {
+            Box(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(15.dp)
-                    .clickable { router.navToCourseContent(course.id.toString()) },
-                elevation = 10.dp
+
             ) {
-                Column(
-                    modifier = Modifier.padding(15.dp)
-                ) {
-                    Box(
-                        modifier = Modifier
+                Image(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(20.dp)),
 
-                    ) {
-                        Image(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .clip(RoundedCornerShape(20.dp)),
-
-                            painter = painterResource(id = R.drawable.paisaje),
-                            contentDescription = "IMAGEN",
-                        )
-                    }
-
-
-
-                    Text(
-                        text = buildAnnotatedString {
-                            withStyle(
-                                style = SpanStyle(
-                                    fontWeight = FontWeight.W900,
-                                    color = Color(0xFF4552B8),
-                                    fontSize = 20.sp
-                                )
-                            ) {
-                                append(course.name)
-                            }
-                        }, textAlign = TextAlign.Center, modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 10.dp)
-                    )
+                    painter = painterResource(id = R.drawable.paisaje),
+                    contentDescription = "IMAGEN",
+                )
             }
+
+
+
+            Text(
+                text = buildAnnotatedString {
+                    withStyle(
+                        style = SpanStyle(
+                            fontWeight = FontWeight.W900,
+                            color = Color(0xFF4552B8),
+                            fontSize = 20.sp
+                        )
+                    ) {
+                        append(course.name)
+                    }
+                }, textAlign = TextAlign.Center, modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 10.dp)
+            )
+        }
     }
 }
