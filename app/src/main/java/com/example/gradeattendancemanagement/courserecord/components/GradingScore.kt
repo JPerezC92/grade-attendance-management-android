@@ -95,7 +95,7 @@ fun GradingScore(scoreId: MutableState<Int?>, loading: UseLoadingResult, courseR
 
                 ClickableText(
                     modifier = Modifier
-                        .fillMaxWidth(0.7F)
+                        .fillMaxWidth(0.6F)
                         .fillMaxHeight()
                         .padding(top = 15.dp)
                         .padding(horizontal = 10.dp),
