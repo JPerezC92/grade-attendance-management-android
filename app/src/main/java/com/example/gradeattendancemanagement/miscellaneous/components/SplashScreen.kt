@@ -19,9 +19,9 @@ import com.example.gradeattendancemanagement.miscellaneous.local.LocalRouter
 import kotlinx.coroutines.delay
 
 @Composable
-fun SplashScreen () {
+fun SplashScreen(navTo: (() -> Unit)? = null) {
     val router = LocalRouter.current
-    val scale = remember{
+    val scale = remember {
         Animatable(0f)
     }
     LaunchedEffect(key1 = true) {
@@ -35,7 +35,9 @@ fun SplashScreen () {
             )
         )
         delay(3000L)
-        router.navToLogin()
+        if (navTo != null) {
+            navTo()
+        }
     }
 
     Box(
@@ -45,7 +47,7 @@ fun SplashScreen () {
     ) {
         Image(
             painter = painterResource(id = R.drawable.logo_senati),
-            contentDescription ="logo",
+            contentDescription = "logo",
             modifier = Modifier
                 .size(300.dp)
         )

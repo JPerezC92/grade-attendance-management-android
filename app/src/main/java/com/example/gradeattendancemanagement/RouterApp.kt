@@ -1,8 +1,6 @@
 package com.example.gradeattendancemanagement
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.compose.NavHost
@@ -36,7 +34,7 @@ fun RouterApp() {
 
     NavHost(navController = router.routerAppController, startDestination = SplashScreen.route) {
         composable(SplashScreen.route) {
-            SplashScreen()
+            SplashScreen(navTo = router.navToLogin)
         }
 
         composable(LoginScreen.route) {

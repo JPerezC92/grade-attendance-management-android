@@ -23,6 +23,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.gradeattendancemanagement.courserecord.types.ScoreAssignedContent
+import com.example.gradeattendancemanagement.miscellaneous.components.CustomCircularProgress
 import com.example.gradeattendancemanagement.miscellaneous.components.Dialog
 import com.example.gradeattendancemanagement.miscellaneous.hooks.useLoading
 import com.example.gradeattendancemanagement.miscellaneous.types.UseLoadingResult
@@ -43,7 +44,7 @@ fun GradingScore(scoreId: MutableState<Int?>, loading: UseLoadingResult, courseR
         scoreAssignedContent.value = newScoreAssignedContent
     }
 
-    if (loading.isLoading === true) {
+    if (loading.isLoading) {
         SendGetScoreAssignedContentRequest(
             scoreId = scoreId.value.toString(),
             courseRecordId = courseRecordId,
@@ -51,6 +52,11 @@ fun GradingScore(scoreId: MutableState<Int?>, loading: UseLoadingResult, courseR
             loading = loading
         )
 
+        CustomCircularProgress(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 20.dp)
+        )
     } else {
 
 
@@ -63,7 +69,7 @@ fun GradingScore(scoreId: MutableState<Int?>, loading: UseLoadingResult, courseR
             Text(
                 text = "Nombres",
                 modifier = Modifier
-                    .fillMaxWidth(0.7F)
+                    .fillMaxWidth(0.6F)
                     .padding(8.dp),
                 textAlign = TextAlign.Center
             )
@@ -159,7 +165,10 @@ fun GradingScore(scoreId: MutableState<Int?>, loading: UseLoadingResult, courseR
                     modifier = Modifier
                         .padding(bottom = 10.dp)
                         .fillMaxWidth(),
-                    text = "${currentScoreAssignedContent.value!!.updated_at.toDate().formatTo("dd MMM yyyy")}",
+                    text = "${
+                        currentScoreAssignedContent.value!!.updated_at.toDate()
+                            .formatTo("dd MMM yyyy")
+                    }",
                     style = TextStyle(
                         fontSize = 15.sp,
                         fontWeight = FontWeight.Bold,
@@ -180,32 +189,34 @@ fun GradingScore(scoreId: MutableState<Int?>, loading: UseLoadingResult, courseR
                     value = if (currentScoreAssignedContent.value!!.value === 0f || currentScoreAssignedContent.value!!.value == null) {
                         ""
                     } else {
-                        if (currentScoreAssignedContent.value!!.value == null){
+                        if (currentScoreAssignedContent.value!!.value.toString() == "0.0") {
                             "0"
-                        }
-                        else{
+                        } else {
                             scoreValue.value
                         }
                     },
                     onValueChange = { newValue ->
 
-                    if (newValue > 20.toString()){
-                        ""
-                    } else {
-                        scoreValue.value = newValue
+                        if (newValue > 20.toString()) {
+                            ""
+                        } else {
+                            scoreValue.value = newValue
 
-                        if (scoreValue.value.isNotEmpty()) {
-                            currentScoreAssignedContent!!.value!!.value =
-                                newValue.trim().toFloatOrNull()
+                            if (scoreValue.value.isNotEmpty()) {
+                                currentScoreAssignedContent!!.value!!.value =
+                                    newValue.trim().toFloatOrNull()
+                            }
                         }
-                    }
-                })
+                    })
             }
         }
     )
 }
 
-fun String.toDate(dateFormat: String = "yyyy-MM-dd HH:mm:ss", timeZone: TimeZone = TimeZone.getTimeZone("UTC")): Date {
+fun String.toDate(
+    dateFormat: String = "yyyy-MM-dd HH:mm:ss",
+    timeZone: TimeZone = TimeZone.getTimeZone("UTC")
+): Date {
     val parser = SimpleDateFormat(dateFormat, Locale.getDefault())
     parser.timeZone = timeZone
     return parser.parse(this)

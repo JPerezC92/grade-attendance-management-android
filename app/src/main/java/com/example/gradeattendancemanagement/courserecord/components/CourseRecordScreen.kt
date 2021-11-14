@@ -1,10 +1,6 @@
 package com.example.gradeattendancemanagement.courserecord.components
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -15,8 +11,8 @@ import androidx.compose.ui.unit.dp
 import com.example.gradeattendancemanagement.auth.local.LocalAuth
 import com.example.gradeattendancemanagement.courserecord.repositories.LaravelGetCourseRecordRepository
 import com.example.gradeattendancemanagement.courserecord.types.Activity
-import com.example.gradeattendancemanagement.courserecord.types.CourseRecordContent
 import com.example.gradeattendancemanagement.courserecord.types.Score
+import com.example.gradeattendancemanagement.miscellaneous.components.SplashScreen
 import com.example.gradeattendancemanagement.miscellaneous.hooks.useFetch
 import com.example.gradeattendancemanagement.miscellaneous.hooks.useLoading
 
@@ -59,19 +55,20 @@ fun CourseRecordScreen(
         }
     }
 
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .padding(16.dp)) {
-
-        if (courseRecordContent !== null) {
-
+    if (courseRecordContent == null) {
+        SplashScreen()
+    } else {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .fillMaxHeight()
+                .padding(16.dp)
+        ) {
             Text(text = "Carrera: ${courseRecordContent.courseRecord.career}")
             Text(text = "Semestre: ${courseRecordContent.courseRecord.semester}")
             Text(text = "Grupo: ${courseRecordContent.courseRecord.group}")
             Text(text = "Turno: ${courseRecordContent.courseRecord.turn}")
-        }
 
-        if (courseRecordContent is CourseRecordContent) {
             if (componentView == "GRADE") {
                 CourseRecordGrade(
                     courseRecordContent = courseRecordContent,

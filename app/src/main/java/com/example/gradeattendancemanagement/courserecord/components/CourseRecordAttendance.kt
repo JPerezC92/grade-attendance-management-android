@@ -3,10 +3,7 @@ package com.example.gradeattendancemanagement.courserecord.components
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.Button
-import androidx.compose.material.Divider
-import androidx.compose.material.RadioButton
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -16,8 +13,10 @@ import androidx.compose.ui.unit.dp
 import com.example.gradeattendancemanagement.courserecord.types.Attendance
 import com.example.gradeattendancemanagement.courserecord.types.CourseRecordContent
 import com.example.gradeattendancemanagement.courserecord.types.assignedattendance.AssignedAttendance
+import com.example.gradeattendancemanagement.miscellaneous.components.CustomCircularProgress
 import com.example.gradeattendancemanagement.miscellaneous.components.RoundedButton
 import com.example.gradeattendancemanagement.miscellaneous.components.SelectMenu
+import com.example.gradeattendancemanagement.miscellaneous.components.SplashScreen
 import com.example.gradeattendancemanagement.miscellaneous.hooks.useLoading
 
 @Composable
@@ -52,7 +51,7 @@ fun CourseRecordAttendance(courseRecordContent: CourseRecordContent) {
 
                 SelectMenu(
                     modifier = Modifier.fillMaxWidth(0.5f),
-                    menuItems = courseRecordContent.attendances.map { attendance: Attendance -> attendance.date },
+                    menuItems = courseRecordContent.attendances.map { attendance: Attendance -> "${attendance.date} | ${attendance.type}" },
                     menuExpandedState = expanded.value,
                     placeholder = "Seleccione una fecha",
                     updateMenuExpandStatus = { expanded.value = true },
@@ -87,6 +86,11 @@ fun CourseRecordAttendance(courseRecordContent: CourseRecordContent) {
                     attendanceId = attendance.value!!.id.toString(),
                     loading = getAssignedAttendanceLoading,
                     setAssignedAttendance = setAssignedAttendance
+                )
+                CustomCircularProgress(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 20.dp)
                 )
             } else {
 
@@ -137,7 +141,7 @@ fun CourseRecordAttendance(courseRecordContent: CourseRecordContent) {
                     assignedAttendance.value.attendancesCheck.map { attendancesCheck ->
                         Row() {
                             Text(
-                                text = "${attendancesCheck.firstname}",
+                                text = "${attendancesCheck.lastname} ${attendancesCheck.firstname[0]}.",
                                 Modifier
                                     .fillParentMaxWidth(0.7F)
                                     .padding(8.dp)
