@@ -69,7 +69,7 @@ fun GradingScore(scoreId: MutableState<Int?>, loading: UseLoadingResult, courseR
             Text(
                 text = "Nombres",
                 modifier = Modifier
-                    .fillMaxWidth(0.6F)
+                    .fillMaxWidth(0.7F)
                     .padding(8.dp),
                 textAlign = TextAlign.Center
             )
@@ -95,7 +95,7 @@ fun GradingScore(scoreId: MutableState<Int?>, loading: UseLoadingResult, courseR
 
                 ClickableText(
                     modifier = Modifier
-                        .fillMaxWidth(0.6F)
+                        .fillMaxWidth(0.7F)
                         .fillMaxHeight()
                         .padding(top = 15.dp)
                         .padding(horizontal = 10.dp),
@@ -117,7 +117,7 @@ fun GradingScore(scoreId: MutableState<Int?>, loading: UseLoadingResult, courseR
                         currentScoreAssignedContent.value = scoreAssigned
                         openDialog.value = true
                     }) {
-                    Text(text = if (scoreAssigned.value!!.toInt() === 0 || scoreAssigned.value === null) "Calificar" else scoreAssigned.value.toString())
+                    Text(text = if (scoreAssigned.value!!.toInt() === 0 || scoreAssigned.value === null) "Nota" else scoreAssigned.value.toString())
                 }
 
 

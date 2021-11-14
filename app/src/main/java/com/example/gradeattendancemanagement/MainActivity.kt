@@ -1,5 +1,6 @@
 package com.example.gradeattendancemanagement
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -16,6 +17,7 @@ import com.example.gradeattendancemanagement.ui.theme.GradeAttendanceManagementT
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        this.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LOCKED
         setContent {
             GradeAttendanceManagementTheme {
                 // A surface container using the 'background' color from the theme
@@ -26,22 +28,24 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
+
 }
 
 @Composable
-fun MainScreen(content: @Composable () -> Unit ){
+fun MainScreen(content: @Composable () -> Unit) {
     val navController = rememberNavController()
     val scaffoldState = rememberScaffoldState(
-            drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+        drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     )
     val scope = rememberCoroutineScope()
 
     Scaffold(
-            scaffoldState = scaffoldState,
-            topBar = { TopBar(scope , scaffoldState )},
-            drawerContent = { Drawer(scope, scaffoldState) },
-            content = {
-                content()
-            }
+        scaffoldState = scaffoldState,
+        topBar = { TopBar(scope, scaffoldState) },
+        drawerContent = { Drawer(scope, scaffoldState) },
+        content = {
+            content()
+        }
     )
 }
