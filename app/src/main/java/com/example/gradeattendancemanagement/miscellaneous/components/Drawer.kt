@@ -46,49 +46,45 @@ fun Drawer(
 ) {
     val auth = LocalAuth.current
     Column {
-        Image(
-/*
-                painter = painterResource(id = R.drawable.image_user),
-                contentDescription = "logo Image",
+
+        Row {
+            Image(
+                painter = painterResource(id = R.drawable.instructor),
+                contentDescription = "instructor image",
                 modifier = Modifier
-                        .size(70.dp)
-                        .padding(10.dp)
-                        .clip(CircleShape)
-                        .border(1.5.dp, MaterialTheme.colors.secondary, CircleShape)
+                    .size(90.dp)
+                    .padding(horizontal = 15.dp, vertical = 15.dp)
+                    .clip(CircleShape)
+            )
 
-        )
-
-        Text(
-                text = "User1",
-                style = TextStyle(
-                    fontSize = 20.sp,
-                    fontStyle = FontStyle.Italic),
+            Column (
                 modifier = Modifier
-                    .padding(10.dp)
-        )
+                    .padding(vertical = 15.dp)
+            ){
+                Text(
+                    text = "${auth.user?.firstname}",
+                    style = TextStyle(
+                        fontSize = 25.sp),
+                    modifier = Modifier
+                        .padding(horizontal = 15.dp)
+                )
 
-        Text(
-                text = "user1@gmail.com",
-                style = TextStyle(
-                    fontSize = 14.sp),
-                modifier = Modifier
-                    .padding(10.dp)
+                Text(
+                    text = "${auth.user?.email}",
+                    style = TextStyle(
+                        fontSize = 15.sp
+                    ),
+                    modifier = Modifier
+                        .padding(horizontal = 15.dp)
+                )
+            }
 
- */
-            painter = painterResource(id = R.drawable.image_user),
-            contentDescription = "logo Image",
+        }
+
+        Spacer(
             modifier = Modifier
-                .size(70.dp)
-                .clip(CircleShape)
-        )
-
-        Text(
-            text = "${auth.user?.firstname}"
-        )
-
-        Text(
-            text = "${auth.user?.email}"
-        )
+                .fillMaxWidth()
+                .height(8.dp))
 
         Divider(
             modifier = Modifier
@@ -102,7 +98,6 @@ fun Drawer(
         )
 
         DrawerItem(selected = false)
-
 
         scope.launch {
             scaffoldState.drawerState.close()
